@@ -80,7 +80,7 @@ split
 
     if (vars.split_ready &&
         !vars.block_split &&
-        current.phase_code != 3603 &&                // << НЕ сплитить при 3603
+        current.phase_code != 3603 &&                
         !(old.val1 == 2 && old.val2 == 3 && old.val3 == 3 && old.val4 == 3))
     {
         return true;
@@ -93,3 +93,4 @@ reset
 {
     return current.reset_flag == 1 && old.reset_flag != 1;
 }
+
