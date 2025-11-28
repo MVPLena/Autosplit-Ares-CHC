@@ -26,6 +26,7 @@ init
     vars.special_split_triggered = false;
 
     vars.once_196_val3 = false;
+    vars.once_218_val3 = false; 
 }
 
 update
@@ -52,6 +53,9 @@ update
 
     if (!(current.block1 == 196 && current.val3 == 2))
         vars.once_196_val3 = false;
+
+    if (!(current.block2 == 218 && current.val3 == 2))
+        vars.once_218_val3 = false;
 }
 
 start
@@ -61,6 +65,13 @@ start
 
 split
 {
+    if (!vars.once_218_val3 &&
+        current.block2 == 218 &&
+        current.val3 == 2)
+    {
+        vars.once_218_val3 = true;
+        return true;
+    }
 
     if (!vars.once_196_val3 &&
         current.block1 == 196 &&
@@ -70,17 +81,21 @@ split
         return true;
     }
 
-
     if (old.block1 == 129 && current.block1 == 68 && !vars.special_split_triggered)
     {
         vars.special_split_triggered = true;
         return true;
     }
 
+    if (vars.split_ready &&
+        current.block2 == 218)
+    {
+        return false;
+    }
 
     if (vars.split_ready &&
         !vars.block_split &&
-        current.phase_code != 3603 &&                
+        current.phase_code != 3603 &&
         !(old.val1 == 2 && old.val2 == 3 && old.val3 == 3 && old.val4 == 3))
     {
         return true;
@@ -93,4 +108,3 @@ reset
 {
     return current.reset_flag == 1 && old.reset_flag != 1;
 }
-
