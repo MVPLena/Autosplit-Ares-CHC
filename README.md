@@ -4,7 +4,7 @@
 ### Reset - Finished
 ### Lab/Fight - Finished
 ### Lab/Surrender - Finished
-### Chase/Fight - Work in progress
+### Chase/Fight - Finished
 ### Chase/Surrender - Work in progress
 ### Hidden - Work in progress
 ### 
