@@ -5,7 +5,7 @@
 ### Lab/Fight - Finished
 ### Lab/Surrender - Finished
 ### Chase/Fight - Finished
-### Chase/Surrender - Work in progress
+### Chase/Surrender - Finished
 ### Hidden - Work in progress
 ### 
 #### Last update 30.11.25: Chase/Surrender - Finished
