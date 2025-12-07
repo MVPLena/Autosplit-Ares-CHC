@@ -6,8 +6,8 @@
 ### Lab/Surrender - Finished
 ### Chase/Fight - Finished
 ### Chase/Surrender - Finished
-### Hidden - Work in progress
+### Hidden - Finished
 ### 
-#### Last update 30.11.25: Chase/Surrender - Finished
+#### Last update 07.12.25: Hidden - Finished
 #### After you defeat the final boss, it's better to end the split manually for more accurate timing.
 #### Currently, the split does not trigger immediately after the final boss dies.
