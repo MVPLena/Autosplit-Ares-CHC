@@ -14,7 +14,9 @@ state("ares")
     byte fast1 : "ares.exe", 0x61A1A42;
     byte fast2 : "ares.exe", 0x61AD9F2;
 
-    ushort phase_code : "ares.exe", 0x61A4BF4; // 3603
+    ushort phase_code : "ares.exe", 0x61A4BF4;
+
+    byte stage_flag : "ares.exe", 0x61ACD24;
 }
 
 init
@@ -26,7 +28,9 @@ init
     vars.special_split_triggered = false;
 
     vars.once_196_val3 = false;
-    vars.once_218_val3 = false; 
+    vars.once_218_val3 = false;
+
+    vars.once_17_stage = false; 
 }
 
 update
@@ -56,6 +60,9 @@ update
 
     if (!(current.block2 == 218 && current.val3 == 2))
         vars.once_218_val3 = false;
+
+    if (!(current.block1 == 17 && current.stage_flag == 6))
+        vars.once_17_stage = false;
 }
 
 start
@@ -78,6 +85,15 @@ split
         current.val3 == 2)
     {
         vars.once_196_val3 = true;
+        return true;
+    }
+
+    if (!vars.once_17_stage &&
+        current.block1 == 17 &&
+        old.stage_flag == 2 &&
+        current.stage_flag == 6)
+    {
+        vars.once_17_stage = true;
         return true;
     }
 
