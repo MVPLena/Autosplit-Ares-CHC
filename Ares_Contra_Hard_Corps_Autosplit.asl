@@ -15,7 +15,7 @@ state("ares")
     byte fast2 : "ares.exe", 0x61AD9F2;
 
     ushort phase_code : "ares.exe", 0x61A4BF4;
-    byte stage_flag : "ares.exe", 0x61ACD24;
+    byte stage_flag  : "ares.exe", 0x61ACD24;
 }
 
 init
@@ -28,8 +28,9 @@ init
 
     vars.once_196_val3 = false;
     vars.once_218_val3 = false;
-
     vars.once_17_stage = false;
+
+    vars.phase_lock_until = 0.0;
 }
 
 update
@@ -66,6 +67,13 @@ update
     {
         vars.once_17_stage = false;
     }
+
+    if (old.phase_code == 3603 &&
+        current.phase_code == 19348)
+    {
+        vars.phase_lock_until =
+            timer.CurrentTime.RealTime.Value.TotalSeconds + 5.0;
+    }
 }
 
 start
@@ -75,6 +83,11 @@ start
 
 split
 {
+    if (timer.CurrentTime.RealTime.Value.TotalSeconds < vars.phase_lock_until)
+    {
+        return false;
+    }
+
     if (!vars.once_218_val3 &&
         current.block2 == 218 &&
         current.val3 == 2)
@@ -91,7 +104,6 @@ split
         return true;
     }
 
-    // block1=17 + stage_flag (2→6) + phase_code=52445
     if (!vars.once_17_stage &&
         current.block1 == 17 &&
         old.stage_flag == 2 &&
@@ -102,7 +114,9 @@ split
         return true;
     }
 
-    if (old.block1 == 129 && current.block1 == 68 && !vars.special_split_triggered)
+    if (old.block1 == 129 &&
+        current.block1 == 68 &&
+        !vars.special_split_triggered)
     {
         vars.special_split_triggered = true;
         return true;
@@ -117,7 +131,10 @@ split
     if (vars.split_ready &&
         !vars.block_split &&
         current.phase_code != 3603 &&
-        !(old.val1 == 2 && old.val2 == 3 && old.val3 == 3 && old.val4 == 3))
+        !(old.val1 == 2 &&
+          old.val2 == 3 &&
+          old.val3 == 3 &&
+          old.val4 == 3))
     {
         return true;
     }
